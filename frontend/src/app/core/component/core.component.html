@@ -1,0 +1,14 @@
+<app-header *ngIf="showHeader"></app-header>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <app-sidebar *ngIf="_auth.user()"></app-sidebar>
+
+    <!-- Page Content -->
+    <div id="content">
+        <app-breadcrumbs *ngIf="_auth.user()"></app-breadcrumbs>
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

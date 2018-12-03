@@ -1,0 +1,121 @@
+<form [formGroup]="form" (ngSubmit)="user.email ? update() : register()" enctype="multipart/form-data">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="icon-user"></i>
+        </span>
+      </div>
+      <input type="text" class="form-control" placeholder="First name" formControlName="firstName">
+    </div>
+    <div class="error text-danger" *ngIf="form.controls.firstName.invalid && form.controls.firstName.touched">
+      <em class="error invalid-feedback" *ngIf="form.controls.firstName.errors.required">
+        First name is required
+      </em>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="icon-user"></i>
+        </span>
+      </div>
+      <input type="text" class="form-control" placeholder="Last name" formControlName="lastName">
+    </div>
+    <div class="error text-danger" *ngIf="form.controls.lastName.invalid && form.controls.lastName.touched">
+      <em class="error invalid-feedback" *ngIf="form.controls.lastName.errors.required">
+        Last name is required
+      </em>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="icon-envelope"></i>
+        </span>
+      </div>
+      <input type="email" class="form-control" placeholder="Email" formControlName="email">
+    </div>
+    <div class="error text-danger" *ngIf="form.controls.email.invalid && form.controls.email.touched">      
+      <em class="error invalid-feedback" *ngIf="form.controls.email.errors.required">
+        Email is required
+      </em>
+      <em class="error invalid-feedback" *ngIf="form.controls.email.errors.email">
+        Invalid email
+      </em>
+    </div>
+  </div>
+
+  <div class="form-group" *ngIf="_auth.isAdmin() && roles">
+    <select class="form-control" formControlName="roleId">
+      <option [value]="''" selected disabled>select role...</option>
+      <option *ngFor="let role of roles" [value]="role.id">
+        {{ role.displayName }}
+      </option>
+    </select>
+    <div class="error text-danger" *ngIf="form.controls.roleId.invalid && form.controls.roleId.touched">      
+        <em class="error invalid-feedback" *ngIf="form.controls.roleId.errors.required">
+          Please select the role
+        </em>
+      </div>
+  </div>
+  
+  <div id="password-block" *ngIf="form.controls.password">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="icon-lock"></i>
+          </span>
+        </div>
+        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+      </div>
+      <div class="error text-danger" *ngIf="form.controls.password.invalid && form.controls.password.touched">
+        <em class="error invalid-feedback" *ngIf="form.controls.password.errors.required">
+          Password is required
+        </em>
+        <em class="error invalid-feedback" *ngIf="form.controls.password.errors.minlength">
+          Password must be 8 characters long
+        </em>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="icon-lock"></i>
+          </span>
+        </div>
+        <input type="password" class="form-control" placeholder="Repeat Password" formControlName="confirmPassword">
+      </div>
+      <div class="error text-danger" *ngIf="form.controls.confirmPassword.invalid && form.controls.confirmPassword.touched">
+        <em class="error invalid-feedback" *ngIf="form.controls.confirmPassword.errors.required">
+          Password confirmation is required
+        </em>
+        <em class="error invalid-feedback" *ngIf="form.controls.confirmPassword.errors.MatchPassword">
+          Passwords do not match
+        </em>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="avatar" class="btn btn-md btn-secondary">{{ photoUrl ? 'Change Photo' : 'Upload Photo' }}</label>
+    <input type="file" id="avatar" hidden (change)="uploadPhoto($event)" #avatar>
+    <div class="photo-review" [hidden]="!photoUrl">
+      <img [src]="photoUrl" *ngIf="photoUrl">
+      <div class="remove-photo m-1">
+        <button type="button" class="btn btn-sm btn-danger" (click)="isUpdate ? removePhoto() : clearPhoto()">Remove photo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-100 text-center">
+    <app-submit-button [form]="form" [text]="isUpdate ? 'Update Profile' : 'Create Account'"></app-submit-button>
+  </div>
+</form>

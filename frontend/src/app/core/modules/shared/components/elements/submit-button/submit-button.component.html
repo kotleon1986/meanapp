@@ -1,0 +1,12 @@
+<div class="flex animated fadeIn">
+  <button type="submit"
+          data-style="slide-right"
+          [ngClass]="['btn', 'btn-block', 'submit-button', 'btn-'+color, 'btn-'+size]" 
+          (click)="showLoader()" 
+          [disabled]="(form && !form.valid) || submitted">
+    <span [hidden]="submitted">{{ text }}</span>
+    <img [src]="'assets/images/loader-primary.gif'" class="ml-2" *ngIf="color == 'primary'" [hidden]="!submitted" width="24px">
+    <img [src]="'assets/images/loader-success.gif'" class="ml-2" *ngIf="color == 'success'" [hidden]="!submitted" width="24px">
+    <img [src]="'assets/images/loader-danger.gif'" class="ml-2" *ngIf="color == 'danger'" [hidden]="!submitted" width="24px">
+  </button>  
+</div>

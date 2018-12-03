@@ -1,0 +1,36 @@
+@import './../../../../../../styles';
+
+$photo-size: 42px;
+
+nav a {
+  cursor: pointer !important;
+  display: inline-block;
+}
+
+nav i {
+  color: $white;
+}
+
+nav ul li:not(:last-child) {
+  margin-right: 20px;
+}
+
+div.logo > a > i {
+  font-size: 2rem;
+}
+
+div.profile-photo {
+  height: $photo-size;
+  width: $photo-size;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  @include border-radius(50%);  
+}
+
+strong.profile-name {
+  text-transform: uppercase;
+}
+
+div.dropdown-menu i {
+  color: $black;
+}

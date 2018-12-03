@@ -1,0 +1,10 @@
+@import './../../../../../../styles';
+
+footer {
+  background-color: $layout-main-color;
+  color: $white;
+}
+
+footer > div {
+  margin: auto;
+}

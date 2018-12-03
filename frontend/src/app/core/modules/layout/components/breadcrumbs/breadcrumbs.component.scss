@@ -1,0 +1,25 @@
+@import "./../../../../../../styles";
+
+$breadcrumb-background-color: #e9ecef;
+$button-height: 40px;
+
+#breadcrumbs {
+  div.container-fluid {
+    padding: 0;
+
+    div.container {
+      min-width: 100%;
+      padding: 0;
+
+      ol.breadcrumb {
+        height: $button-height;
+        background: $breadcrumb-background-color;
+        margin-left: $button-height;
+        margin-bottom: 0;
+        padding: .5rem .75rem;
+        border-bottom: 0;
+        @include border-radius(0);
+      }
+    }
+  }
+}

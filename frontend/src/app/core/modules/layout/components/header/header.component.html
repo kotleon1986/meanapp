@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+  <div class="logo container">
+    <a routerLink="/" class="navbar-brand">
+      <i class="fa fa-home"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive" *ngIf="!_auth.user(); else dashboard_header_links">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <i class="fa fa-user-o"></i>
+          <a routerLink="/register" class="nav-link">Register</a>
+        </li>
+        <li class="nav-item">
+          <i class="fa fa-user"></i>
+          <a routerLink="/login" class="nav-link">Login</a>
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #dashboard_header_links>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+              <div class="profile-avatar">
+                <div class="profile-photo" [style.background-image]="'url('+avatarUrl+')'"></div>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-header text-center">
+                <strong class="profile-name">{{ _auth.user().name }}</strong>
+              </div>
+              <a class="dropdown-item" routerLink="/profile" *ngIf="!_auth.isAdmin()">
+                <i class="fa fa-user"></i> Profile</a>
+              <a class="dropdown-item" routerLink="/change-password" *ngIf="!_auth.isAdmin()">
+                <i class="fa fa-lock"></i> Change Password</a>              
+              <a class="dropdown-item" (click)="logout()">
+                <i class="fa fa-sign-out"></i> Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </div>
+</nav>

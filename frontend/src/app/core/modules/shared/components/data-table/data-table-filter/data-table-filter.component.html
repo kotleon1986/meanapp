@@ -1,0 +1,30 @@
+<div class="form-group" *ngIf="filter.type === 'select';else range_filter">
+  <label>Filter by {{ filter.label }}</label>
+  <select class="form-control" (focus)="loadOptions($event)" (change)="filterBySelect($event.target.value)">
+    <option [value]="''">select {{ filter.label.toLowerCase() }}...</option>
+    <option disabled *ngIf="!options">Loading...</option>
+    <option *ngFor="let option of options" [value]="option.id" [selected]="option.id == currentValue">{{ option[filter.optionKey] }}</option>
+  </select>
+</div>
+
+<ng-template #range_filter>
+  <div class="form-group" *ngIf="filter.type === 'range'; else date_filter">
+    <label>Filter by {{ filter.label }}</label>
+
+    <div class="d-flex">
+      <input class="form-control w-25" placeholder="Range start..." type="number" #range_start>
+      <input class="form-control w-25 ml-2 mr-2" placeholder="Range end..." type="number" #range_end>
+      <button class="btn btn-md btn-info mr-2" (click)="filterByRange()">Filter</button>
+      <button class="btn btn-md btn-secondary" (click)="resetRange()">Reset</button>
+    </div>
+  </div>
+
+  <ng-template #date_filter>
+    <div class="form-group">
+      <label>Filter by {{ filter.label }}</label>
+      <div class="date-filter">
+        <ngx-daterangepicker name="date_range_field" [(ngModel)]="dateRangeValue" [options]="dateRangePickerOptions" (ngModelChange)="dateRangeChange()"></ngx-daterangepicker>
+      </div>
+    </div>
+  </ng-template>
+</ng-template>

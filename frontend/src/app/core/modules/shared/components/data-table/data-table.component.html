@@ -1,0 +1,56 @@
+<div id="control-buttons" class="mb-3">
+    <a [routerLink]="addUrl" class="btn btn-success btn-sm btn-air mr-2" type="button" *ngIf="!settings.disableAddButton">
+      <i class="fa fa-plus"></i> Add      
+    </a>
+
+    <button class="btn btn-primary btn-sm btn-air mr-2" type="button" *ngIf="!settings.disableExporting" [disabled]="exporting" (click)="exportData()">
+      <span *ngIf="!exporting"><i class="fa fa-file-excel-o"></i> Export</span>
+      <img [src]="'assets/images/export-loader.gif'" class="pl-3 pr-3" *ngIf="exporting"> 
+    </button>
+
+    <button class="btn btn-secondary btn-sm" type="button" data-toggle="collapse" *ngIf="settings.filters" (click)="showFilters = !showFilters" 
+      data-target="#filters-container" aria-expanded="false" aria-controls="filters-container">
+        <i class="fa fa-filter"></i> Filters 
+        <small class="fa fa-chevron-up pl-2 font-small" *ngIf="showFilters"></small>
+        <small class="fa fa-chevron-down pl-2 font-small" *ngIf="!showFilters"></small>
+    </button>
+</div>
+
+<div id="filters" class="mt-4 mb-3" *ngIf="settings.filters">
+  <div class="collapse" id="filters-container">
+    <div class="d-flex justify-content-between">
+      <app-data-table-filter *ngFor="let filter of settings.filters" [filter]="filter" (filterParamEvent)="setupCustomFilterParams($event)"></app-data-table-filter>      
+    </div>
+  </div>  
+</div>
+
+<table datatable="ng" [dtOptions]="dtOptions" class="table table-condensed row-border hover" #data_table>
+  <thead>
+    <tr>
+      <th *ngFor="let column of settings.columns">
+        {{ column.title }}
+      </th>
+      <th *ngIf="!this.settings.disableActions">
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="!rows">
+      Loading...
+    </tr>
+    <tr *ngIf="rows?.length == 0">
+      <td [attr.colspan]="settings.columns.length" class="no-data-available">No data available</td>
+    </tr>
+    <tr *ngFor="let row of rows">
+      <td *ngFor="let column of settings.columns" (click)="edit(row)">
+        <app-data-table-cell [column]="column" [row]="row" (click)="customActionClickEvent(column, row)"></app-data-table-cell>
+      </td>
+      <td *ngIf="!settings.disableActions">
+        <button class="btn btn-sm btn-danger btn-air" (click)="remove(row)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>    
+  </tbody>
+</table>

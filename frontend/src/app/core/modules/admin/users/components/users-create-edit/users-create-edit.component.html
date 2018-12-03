@@ -1,0 +1,33 @@
+<div class="card mb-2" style="width: 100%;">
+  <div class="card-body">
+    <app-back-button [url]="'/admin/users'"></app-back-button>
+    <div class="d-flex justify-content-between">
+      <div>
+          <h5 class="card-title" *ngIf="!user">Create User</h5>
+          <h5 class="card-title" *ngIf="user">Edit User #{{ user.id }}</h5>
+      </div>
+      <div *ngIf="user" class="d-flex align-items-center">
+        <ui-switch 
+          (change)="changeUserStatus($event)"
+          [checked]="user.status.type == 'success'" 
+          size="small">
+        </ui-switch>
+      </div>
+    </div>
+    <div id="table-content">
+      <app-profile-form *ngIf="roles" [user]="user" [roles]="roles"></app-profile-form>
+    </div>    
+  </div>
+</div>
+
+<div class="card mb-5" *ngIf="user">
+  <div class="card-body">
+    <div class="d-flex justify-content-between mb-2">
+      <h5 class="card-title">Change Password</h5>
+      <app-submit-button [text]="'Reset Password'" [color]="'success'" [size]="'sm'" (click)="resetPassword()"></app-submit-button>      
+    </div>
+    <div id="change-password" *ngIf="user">
+      <app-password-form [user]="user" (formSubmit)="changeUserPassword($event)"></app-password-form>
+    </div>
+  </div>
+</div>

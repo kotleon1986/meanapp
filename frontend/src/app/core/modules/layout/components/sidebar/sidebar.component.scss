@@ -1,0 +1,100 @@
+$sidebar-color: rgba(0,0,0,.7);
+$sidebar-header: rgba(32, 32, 32, 0.7);
+$active-color: #f5deb3;
+$main-color: #fff;
+$sidebar-width: 200px;
+$sidebar-minimized-width: 50px;
+$toggle-button-width: 40px;
+
+
+div.sidebar-container {
+  position: relative;
+}
+
+#sidebar {
+  max-width: $sidebar-width;
+  margin-left: 0;
+  background: $sidebar-color;
+  color: $main-color;
+  transition: all 0.3s;
+
+  .sidebar-header {
+    background: $sidebar-color;
+    text-align: center;
+    padding: 10px;
+  }
+
+  ul.components {
+    border-bottom: 1px solid $sidebar-header;
+  }
+
+  ul p {
+    color: $main-color;
+    padding: 10px;
+  }
+
+  ul li a {
+    padding: 10px;
+    font-size: 1em;
+    display: block;
+    background: $sidebar-header;
+    cursor: pointer;
+    color: $main-color;
+  }
+
+  ul li a:hover {
+    color: $sidebar-color;
+    background: $main-color;
+  }
+
+  ul li a.active, a[aria-expanded="true"] {
+    color: $active-color;
+    background: $sidebar-header;
+  }
+
+  ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: $sidebar-header;
+  }
+
+  nav {
+    max-height: initial;
+  }
+
+  a.nav-link:hover i.nav-icon {
+    color: $sidebar-color;
+  }
+
+  a.nav-link.active:hover i.nav-icon {
+    color: $active-color;
+  }
+
+}
+
+div.sidebar-minimized #sidebar {
+  max-width: $sidebar-minimized-width;
+
+  ul li a {
+    padding: .75rem 0 1rem;
+  }
+}
+
+#sidebar.collapsed {
+  margin-left: (-$sidebar-width);
+}
+
+#sidebarCollapse {
+  position: absolute;
+  top: 0;
+  right: (-$toggle-button-width);
+  border-radius: 0;
+  width: $toggle-button-width;
+  height: $toggle-button-width;
+  z-index: 10;
+}
+
+#sidebarCollapse:focus {
+  outline-width: 0;
+  box-shadow: none;
+}

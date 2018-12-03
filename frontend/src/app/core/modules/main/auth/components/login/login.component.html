@@ -1,0 +1,79 @@
+<div class="container" *ngIf="loginForm">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card-group">
+        <div class="card p-4">
+          <div class="card-body">
+            <h1>Login</h1>
+            <p class="text-muted">Sign In to your account</p>
+            <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-user"></i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Enter your email" formControlName="email">
+                </div>
+                <div class="error text-danger" *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">
+                  <em class="error invalid-feedback" *ngIf="loginForm.controls.email.errors.required">
+                    Please enter your email
+                  </em>
+                  <em class="error invalid-feedback" *ngIf="loginForm.controls.email.errors.email">
+                    Invalid email
+                  </em>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="icon-lock"></i>
+                    </span>
+                  </div>
+                  <input type="password" class="form-control" placeholder="Enter your password" formControlName="password">
+                </div>
+                <div class="error text-danger" *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">
+                  <em class="error invalid-feedback" *ngIf="loginForm.controls.password.errors.required">
+                    Please enter your password
+                  </em>
+                  <em class="error invalid-feedback" *ngIf="loginForm.controls.password.errors.minlength">
+                    Password must be 8 characters long
+                  </em>                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <app-submit-button [form]="loginForm" [text]="'Login'"></app-submit-button>                  
+                </div>
+                <div class="col-6 text-right">
+                  <a routerLink='/forgot-password' class="btn btn-link px-0">Forgot password? </a>
+                </div>
+              </div>
+              <div class="mt-1 mb-1">
+                <a routerLink="/register">Create new account</a>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer p-4 text-center">
+            <div class="row">
+              <div class="col-6">
+                <button class="btn btn-brand btn-facebook" type="button" (click)="socialLogin('Facebook')">
+                  <i class="fa fa-facebook"></i>
+                  <span>Facebook</span>
+                </button>
+              </div>
+              <div class="col-6">
+                <button class="btn btn-brand btn-google-plus" type="button" (click)="socialLogin('Google')">
+                  <i class="fa fa-google-plus"></i>
+                  <span>Google</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

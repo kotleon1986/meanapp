@@ -1,0 +1,13 @@
+<span *ngIf="(!column.type || column.type == cellTypes.TEXT)">{{ cell(row, column) }}</span>
+
+<span *ngIf="(column.type == cellTypes.DATE)">{{ cell(row, column) | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+
+<span *ngIf="column.type == cellTypes.BADGE" [ngClass]="['badge', 'badge-pill', 'badge-' + row[column.prop || camelCase(column.title)]['type']]">
+  {{ row[column.prop || camelCase(column.title)]['text'] }}
+</span>        
+
+<button class="btn btn-sm btn-secondary" *ngIf="column.type == cellTypes.BUTTON" [innerHTML]="column.custom || column.title">  
+</button>
+
+<a *ngIf="column.link" [routerLink]="column.link" [innerHTML]="column.custom || column.title">  
+</a>

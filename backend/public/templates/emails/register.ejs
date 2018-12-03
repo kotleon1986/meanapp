@@ -1,0 +1,12 @@
+<h2>Hello, <%= user.name %></h2>
+<h3>You have successfully registered your account</h3>
+<p>
+    Please proceed with this <a href="<%= process.env.FRONT_URL %>/login">link</a> to login to your account. 
+</p>
+<p>
+    Your credentials:
+    <ul>
+        <li>Email: <%= user.email %></li>
+        <li>Password: <%= password %></li>
+    </ul>
+</p>
